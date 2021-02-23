@@ -11,6 +11,7 @@ const ENTRY_PATH = pathLib.resolve(ROOT_PATH, 'app');
 const OUTPUT_PATH = pathLib.resolve(ROOT_PATH, 'build');
 console.log(pathLib.resolve(ENTRY_PATH, 'index.js'));
 
+const exclude=/node_modules|dbjson/;
 module.exports = {
     entry: {
         index: [
@@ -31,12 +32,12 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules/,
+                exclude,
                 use: ['babel-loader']
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
+                exclude,
                 use: ['style-loader',
                     {
                         loader: 'css-loader',
@@ -51,6 +52,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
+                //todo ???原来node包中的css要用loader解析
                 include: /node_modules/,
                 use: ['style-loader',
                     {
@@ -65,7 +67,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|JPG|GIF|PNG|BMP|bmp|JPEG|jpeg)$/,
-                exclude: /node_modules/,
+                exclude,
                 use: [
                     {
                         loader: 'url-loader',

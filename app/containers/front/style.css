@@ -1,12 +1,12 @@
 .contentContainer{
-    width: 60%;
+    width: 100vw;
     display: flex;
     flex-direction: row;
     padding-top: 20px;
 }
 .loginContainer{
-    flex:1;
-    margin-left: 10px;
+    width: 20vw;
+    margin: 0 auto;
 }
 .container{
     display: flex;
@@ -15,5 +15,6 @@
     background: #eee;
 }
 .content{
-    width: 570px;
+    width: 70vw;
+    padding: 0 3vw;
 }
