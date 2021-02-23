@@ -8,7 +8,7 @@ import { Pagination } from 'antd';
 import {actions} from '../../reducers/adminManagerArticle'
 import {actions as FrontActions} from '../../reducers/frontReducer'
 import Admin from "../admin/Admin";
-const {get_article_list,delete_article,edit_article} = actions;
+const {get_article_list,delete_article,edit_article,hide_show_article} = actions;
 const {get_article_detail} = FrontActions;
 class AdminManagerArticle extends Component{
 
@@ -20,11 +20,12 @@ class AdminManagerArticle extends Component{
     render(){
         return(
             <div>
-                <h2>文章管理</h2>
+                <h2>文章管理2</h2>
                 <div className={style.articleListContainer}>
                     {
                         this.props.articleList.map((item,index)=>(
                             <ManagerArticleCell
+                                hide_show_article={this.props.hide_show_article}
                                 edit_article={(id)=>this.props.edit_article(id)}
                                 history={this.props.history}
                                 getArticleDetail={(id)=>this.props.get_article_detail(id)}
@@ -78,7 +79,8 @@ function mapDispatchToProps(dispatch) {
         get_article_list:bindActionCreators(get_article_list,dispatch),
         delete_article:bindActionCreators(delete_article,dispatch),
         edit_article:bindActionCreators(edit_article,dispatch),
-        get_article_detail:bindActionCreators(get_article_detail,dispatch)
+        get_article_detail:bindActionCreators(get_article_detail,dispatch),
+        hide_show_article:bindActionCreators(hide_show_article,dispatch),
     }
 }
 

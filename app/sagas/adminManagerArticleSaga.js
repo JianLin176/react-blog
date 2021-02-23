@@ -35,6 +35,42 @@ export function* getArticleListFlow () {
     }
 }
 
+export function* hideShowArticle (id,isPublish) {
+    yield put({type: IndexActionTypes.FETCH_START});
+    try {
+        console.log('请求')
+        return yield call(post, `/hideShowArticle`,{id,isPublish});
+    } catch (err) {
+        yield put({type: IndexActionTypes.SET_MESSAGE, msgContent: '网络请求错误', msgType: 0});
+    } finally {
+        yield put({type: IndexActionTypes.FETCH_END})
+    }
+}
+
+export function* hideShowArticleFlow () {
+    while(true){
+        let req = yield take(ArticleTypes.ADMIN_HIDE_SHOW_ARTICLE);
+        console.log('进入流',req)
+        const {id,isPublish}=req;
+        const pageNum = yield select(state=>state.admin.articles.pageNum);
+        let res = yield call(hideShowArticle,id,isPublish);
+        if(res){
+            if (res.code === 0) {
+                const msgContent=isPublish?'发布成功!':'隐藏成功!';
+                yield put({type: IndexActionTypes.SET_MESSAGE, msgContent, msgType: 1});
+                yield put({type:ArticleTypes.ADMIN_GET_ARTICLE_LIST,pageNum})
+            } else if (res.message === '身份信息已过期，请重新登录') {
+                yield put({type: IndexActionTypes.SET_MESSAGE, msgContent: res.message, msgType: 0});
+                setTimeout(function () {
+                    location.replace('/');
+                }, 1000);
+            } else {
+                yield put({type: IndexActionTypes.SET_MESSAGE, msgContent: res.message, msgType: 0});
+            }
+        }
+    }
+}
+
 export function* deleteArticle (id) {
     yield put({type: IndexActionTypes.FETCH_START});
     try {

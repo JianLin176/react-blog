@@ -9,6 +9,7 @@ export const actionTypes = {
     ADMIN_RESPONSE_GET_ARTICLE_LIST: "ADMIN_RESPONSE_GET_ARTICLE_LIST",
     ADMIN_EDIT_ARTICLE: "ADMIN_EDIT_ARTICLE",
     ADMIN_DELETE_ARTICLE: "ADMIN_DELETE_ARTICLE",
+    ADMIN_HIDE_SHOW_ARTICLE: "ADMIN_HIDE_SHOW_ARTICLE",
 };
 
 export const actions = {
@@ -28,6 +29,14 @@ export const actions = {
         return {
             type: actionTypes.ADMIN_EDIT_ARTICLE,
             id
+        }
+    },
+    hide_show_article:function (id,isPublish) {
+        console.log('action',id,isPublish)
+        return {
+            type: actionTypes.ADMIN_HIDE_SHOW_ARTICLE,
+            id,
+            isPublish
         }
     }
 };

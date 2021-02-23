@@ -13,7 +13,7 @@ import Banner from "./components/banner/Banner";
 import Menus from "./components/menu/Menus";
 import NotFound from "../components/notFound/NotFound";
 import {Loading} from "./components/loading/Loading"
-import {notification} from 'antd';
+import {notification,message} from 'antd';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {actions} from '../reducers'
@@ -30,14 +30,9 @@ class AppIndex extends Component {
         this.shouldComponentUpdate = PureRenderMixiin.shouldComponentUpdate.bind(this);
     }
 
-    openNotification(type, message) {
+    openNotification(type, content) {
         let that = this;
-        notification[type]({
-            message: message,
-            onClose: () => {
-                that.props.clear_msg();
-            }
-        });
+        message[type](content);
         that.props.clear_msg();
     };
 

@@ -50,6 +50,27 @@ router.get('/getArticles', function (req, res) {
         responseClient(res);
     });
 });
+
+
+/**
+ *todo express报错就要重启start 麻烦
+ */
+router.post('/hideShowArticle', function (req, res) {
+    console.log('api hideShowArticle',req.body)
+    const {id,isPublish}=req.body;
+    Article.update({_id:id},{isPublish})
+        .then(result=>{
+            console.log(result)
+            if(result.n === 1){
+                responseClient(res,200,0,'操作成功!')
+            }else{
+                responseClient(res,200,1,'文章不存在');
+            }
+        }).cancel(err=>{
+        responseClient(res);
+    })
+});
+
 //获取文章详情
 router.get('/getArticleDetail', (req, res) => {
     let _id = req.query.id;
