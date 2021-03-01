@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {actions} from '../../reducers/adminManagerTags'
 import style from './style.css'
-import {Tag, Input, Tooltip, Button} from 'antd'
+import {Tag, Input, Tooltip, Button, Popconfirm} from 'antd'
 
 const {get_all_tags,delete_tag,add_tag} = actions;
 
@@ -47,10 +47,13 @@ class AdminManagerTags extends Component{
                 <h2 className={style.titleStyle}>标签管理</h2>
                 {tags.map((tag, index) => {
                     const isLongTag = tag.length > 20;
+                    const tagName=isLongTag ? `${tag.slice(0, 20)}...` : tag;
                     const tagElem = (
-                        <Tag className={style.tagStyle} key={index} closable={index !== 0} afterClose={() => this.handleClose(tag)}>
-                            {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-                        </Tag>
+                            <Popconfirm title={`你确认要删除${tagName}吗?`} okText="确认" cancelText="取消" onConfirm={() => this.handleClose(tag)}>
+                                <Tag className={style.tagStyle} key={index} closable={index !== 0} >
+                                    {tagName}
+                                </Tag>
+                            </Popconfirm>
                     );
                     return isLongTag ? <Tooltip key={tag} title={tag}>{tagElem}</Tooltip> : tagElem;
                 })}
