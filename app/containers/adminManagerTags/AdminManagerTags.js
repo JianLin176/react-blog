@@ -50,7 +50,7 @@ class AdminManagerTags extends Component{
                     const tagName=isLongTag ? `${tag.slice(0, 20)}...` : tag;
                     const tagElem = (
                             <Popconfirm title={`你确认要删除${tagName}吗?`} okText="确认" cancelText="取消" onConfirm={() => this.handleClose(tag)}>
-                                <Tag className={style.tagStyle} key={index} closable={index !== 0} >
+                                <Tag closable={false} className={style.tagStyle} key={index}  >
                                     {tagName}
                                 </Tag>
                             </Popconfirm>
